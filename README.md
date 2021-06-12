@@ -1,6 +1,6 @@
 # Rest Countries Frontend Mentor Challenge
 
-it's the Frontend Mentor challenge Rest Countries complete in vanilla
+it's the Frontend Mentor challenge Rest Countries complete in:
 
 - html
 - css
