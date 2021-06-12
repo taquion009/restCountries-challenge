@@ -1,13 +1,53 @@
+.theme-light{
+  --text: hsl(207, 26%, 17%);
+  --Elements: hsl(0, 0%, 100%);
+  --Background: hsl(0, 0%, 98%);
+  --input: rgb(133, 133, 133);
+  --color-input:hsl(0, 0%, 52%);
+}
+.theme-dark{
+  --text: hsl(0, 0%, 100%);
+  --Elements: hsl(209, 23%, 22%);
+  --Background: hsl(207, 26%, 17%);
+  --input: hsl(207, 26%, 17%);
+  --color-input:hsl(0, 0%, 100%);
+}
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Nunito Sans', sans-serif;
+  padding:0;
+  box-sizing:border-box;
+  /* - Homepage Items: 14px
+- Detail Page: 16px  */
+  font-size: 14px;
+  width: 100%;
+  height: 100%;
+  background-color:var(--Background);
+  color:var(--text)
+}
+*,*::before,*::after{
+  padding:0;
+  margin:0;
+  box-sizing:inherit;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+main {
+  padding: 2rem 1rem;
+  max-width: 1700px;
+  margin: auto;
 }
+/* :root{ */
+  /* (Dark Mode Elements) */
+  /* --Dark-Blue: hsl(209, 23%, 22%); */
+  /* (Dark Mode Background) */
+  /* --Very-Dark-Blue : hsl(207, 26%, 17%); */
+  /* (Light Mode Text) */
+  /* --Very-Dark-Blue-Light: hsl(207, 26%, 17%); */
+/* Light Mode Text */
+/* (Dark Mode Text & Light Mode Elements) */
+  /* --White: hsl(0, 0%, 100%); */
+  /* (Light Mode Background) */
+  /* --Very-Light-Gray: hsl(0, 0%, 98%); */
+  /* (Light Mode Input) */
+  /* --Dark-Gray: hsl(0, 0%, 52%); */
+/* } */
