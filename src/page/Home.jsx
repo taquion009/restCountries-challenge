@@ -2,106 +2,130 @@ import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import "./Home.css";
 
+const url = "https://restcountries.com/v3.1/";
+
 const Home = () => {
-    const [select, setSelect] = useState(null)
-    const [db, setDb] = useState([])
-    const [search, setSearch] = useState("")
+  const [select, setSelect] = useState(null);
+  const [db, setDb] = useState([]);
+  const [search, setSearch] = useState("");
 
-    useEffect(() => {
-            fetch("https://restcountries.eu/rest/v2/all")
-            .then(res=>res.json())
-            .then(res=>{
-                const countries = res.map(el=>({name:el.name,img:el.flag,population:el.population,region:el.region,capital:el.capital}))
-                setDb(countries)
-            })
-            .catch(err=>console.log(err))
-    },[])
+  useEffect(() => {
+    if (!select) return;
+    fetch(`${url}region/${select}`)
+      .then((res) => res.json())
+      .then((res) => {
+        const countries = res.map((el) => ({
+          name: el.name.official,
+          img: el.flags.svg,
+          population: el.population,
+          region: el.region,
+          capital: el.capital,
+        }));
+        setDb(countries);
+      })
+      .catch((err) => console.log(err));
+  }, [select]);
 
-    useEffect(() => {
-        if(!select)return;
-        fetch(`https://restcountries.eu/rest/v2/region/${select}`)
-        .then(res=>res.json())
-        .then(res=>{
-            const countries = res.map(el=>({name:el.name,img:el.flag,population:el.population,region:el.region,capital:el.capital}))
-            setDb(countries)
+  useEffect(() => {
+    if (search.trim().length > 1) {
+      fetch(`${url}name/${search.trim()}`)
+        .then((res) => res.json())
+        .then((res) => {
+          const countries = res.map((el) =>
+            el !== null
+              ? {
+                  name: el.name.official,
+                  img: el.flags.svg,
+                  population: el.population,
+                  region: el.region,
+                  capital: el.capital,
+                }
+              : null
+          );
+          setDb(countries);
         })
-        .catch(err=>console.log(err))
-    },[select]);
+        .catch((err) => {
+          setDb([]);
+        });
+    } else {
+      fetch(`${url}all`)
+        .then((res) => res.json())
+        .then((res) => {
+          const countries = res.map((el) => ({
+            name: el.name.official,
+            img: el.flags.svg,
+            population: el.population,
+            region: el.region,
+            capital: el.capital,
+          }));
+          setDb(countries);
+        });
+    }
+  }, [search]);
 
-    useEffect(() => {
-        if(search.trim().length > 1){
-            fetch(`https://restcountries.eu/rest/v2/name/${search.trim()}`)
-            .then(res=>res.json())
-            .then(res=>{
-                const countries = res.map(el=>el !== null?{name:el.name,img:el.flag,population:el.population,region:el.region,capital:el.capital}:null)
-                setDb(countries)
-            })
-            .catch(err=>{
-              setDb([])
-            })
-        }else{
-          fetch("https://restcountries.eu/rest/v2/all")
-          .then(res=>res.json())
-          .then(res=>{
-              const countries = res.map(el=>({name:el.name,img:el.flag,population:el.population,region:el.region,capital:el.capital}))
-              setDb(countries)
-          })
-        }
-    },[search]);
+  const handleSelect = (e) => {
+    setSelect(e.target.dataset.country);
+    document.querySelector(".list-option").classList.add("oculto");
+  };
 
-    const handleSelect = (e) => {
-        setSelect(e.target.dataset.country)
-        document.querySelector(".list-option").classList.add("oculto")
-    };
-
-    const handleSearch = (e) => {
-        setSearch(e.target.value)
-    };
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
   return (
     <main>
       <div className="col-2">
-      <form>
-        <label>
-          <SearchIcon />
-        </label>
-        <input
-          type="text"
-          placeholder="Search for a country..."
-          name="search"
-          onChange={handleSearch}
-          value={search}
-        />
-      </form>
-      <nav className="container-select">
-        <div
-          className="select"
-          onClick={()=>document.querySelector(".list-option").classList.toggle("oculto")}
-        >
-          <span>{select?select:"filter Countries"}</span>
-          <ArrowIcon />
-        </div>
-        <ul className="list-option oculto">
-          <li className="option" onClick={handleSelect}  data-country="africa">
-            Africa
-          </li>
-          <li className="option" onClick={handleSelect} data-country="americas">
-            America
-          </li>
-          <li className="option" onClick={handleSelect} data-country="asia">
-            Asia
-          </li>
-          <li className="option" onClick={handleSelect} data-country="europe">
-            Europa
-          </li>
-          <li className="option" onClick={handleSelect} data-country="oceania">
-            Oceania
-          </li>
-        </ul>
-      </nav>
+        <form>
+          <label>
+            <SearchIcon />
+          </label>
+          <input
+            type="text"
+            placeholder="Search for a country..."
+            name="search"
+            onChange={handleSearch}
+            value={search}
+          />
+        </form>
+        <nav className="container-select">
+          <div
+            className="select"
+            onClick={() =>
+              document.querySelector(".list-option").classList.toggle("oculto")
+            }
+          >
+            <span>{select ? select : "filter Countries"}</span>
+            <ArrowIcon />
+          </div>
+          <ul className="list-option oculto">
+            <li className="option" onClick={handleSelect} data-country="africa">
+              Africa
+            </li>
+            <li
+              className="option"
+              onClick={handleSelect}
+              data-country="americas"
+            >
+              America
+            </li>
+            <li className="option" onClick={handleSelect} data-country="asia">
+              Asia
+            </li>
+            <li className="option" onClick={handleSelect} data-country="europe">
+              Europa
+            </li>
+            <li
+              className="option"
+              onClick={handleSelect}
+              data-country="oceania"
+            >
+              Oceania
+            </li>
+          </ul>
+        </nav>
       </div>
       <div className="container-card">
-        {db && db.map(el=>el?(<Card key={el.name} {...el} />):"")}
+        {db && db.map((el) => (el ? <Card key={el.name} {...el} /> : ""))}
       </div>
     </main>
   );

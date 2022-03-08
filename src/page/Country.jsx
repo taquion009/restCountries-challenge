@@ -2,15 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import "./Country.css";
 
+const url = "https://restcountries.com/v3.1/";
+
 const Border = ({ name }) => {
   const [border, setBorder] = useState(null);
   let history = useHistory();
 
   useEffect(() => {
     if (!name) return;
-    fetch(`https://restcountries.eu/rest/v2/alpha/${name}`)
-    .then(res=>res.json())
-    .then(res=>setBorder(res.name));
+    fetch(`${url}alpha/${name}`)
+      .then((res) => res.json())
+      .then((res) => {
+        setBorder(res[0].name.official);
+      });
   }, [name]);
 
   return (
@@ -32,24 +36,27 @@ const Country = () => {
 
   useEffect(() => {
     if (!name) return;
-    fetch(`https://restcountries.eu/rest/v2/name/${name}?fullText=true`)
-    .then(res=>res.json())
+    fetch(`${url}name/${name}?fullText=true`)
+      .then((res) => res.json())
       .then((res) => {
         const countries = res.map((el) => ({
-          name: el.name,
-          img: el.flag,
+          name: el.name.official || el.name,
+          img: el.img || el.flags.svg,
           population: el.population,
           region: el.region,
           capital: el.capital,
           nativeName: el.nativeName,
           subRegion: el.subregion,
-          topLevelDomain: el.topLevelDomain,
-          currencies: el.currencies,
-          languages: el.languages,
+          topLevelDomain: el.topLevelDomain || el.tld,
+          currencies: res[0].currencies
+            ? Object.values(res[0].currencies).map(({ name }) => name)
+            : null,
+          languages: el.languages ? Object.values(el.languages) : null,
           borders: el.borders,
         }));
+        console.log(countries);
         setcountry(...countries);
-      })
+      });
   }, [history, name]);
 
   const back = (e) => {
@@ -67,56 +74,61 @@ const Country = () => {
               <img src={country.img} alt={country.name} />
             </div>
             <div className="detail">
-                <h2>{country.name}</h2>
-                <div className="col-2">
-              <div>
-                <h4>
-                  <b>Native Name: </b>
-                  {country.nativeName}
-                </h4>
-                <h4>
-                  <b>Population: </b>
-                  {country.population}
-                </h4>
-                <h4>
-                  <b>Region: </b>
-                  {country.region}
-                </h4>
-                <h4>
-                  <b>Sub Region: </b>
-                  {country.subRegion}
-                </h4>
-                <h4>
-                  <b>Capital: </b>
-                  {country.capital}
-                </h4>
+              <h2>{country.name}</h2>
+              <div className="col-2">
+                <div>
+                  <h4>
+                    <b>Native Name: </b>
+                    {country.nativeName || "Sin datos"}
+                  </h4>
+                  <h4>
+                    <b>Population: </b>
+                    {country.population || "Sin datos"}
+                  </h4>
+                  <h4>
+                    <b>Region: </b>
+                    {country.region || "Sin datos"}
+                  </h4>
+                  <h4>
+                    <b>Sub Region: </b>
+                    {country.subRegion || "Sin datos"}
+                  </h4>
+                  <h4>
+                    <b>Capital: </b>
+                    {country.capital || "Sin datos"}
+                  </h4>
+                </div>
+                <div>
+                  <h4>
+                    <b>Top Level Domian: </b>
+                    {country.topLevelDomain
+                      ? country.topLevelDomain.join(", ")
+                      : "Sin datos"}
+                  </h4>
+                  <h4>
+                    <b>Currencies: </b>
+                    {country.currencies
+                      ? country.currencies.join(", ")
+                      : "Sin datos"}
+                  </h4>
+                  <h4>
+                    <b>Languages: </b>
+                    {country.languages
+                      ? country.languages.map((name) => name).join(", ")
+                      : "Sin datos"}
+                  </h4>
+                </div>
               </div>
-              <div>
-                <h4>
-                  <b>Top Level Domian: </b>
-                  {country.topLevelDomain.join(", ")}
-                </h4>
-                <h4>
-                  <b>Currencies: </b>
-                  {country.currencies.map(({ name }) => name).join(", ")}
-                </h4>
-                <h4>
-                  <b>Languages: </b>
-                  {country.languages.map(({ name }) => name).join(", ")}
-                </h4>
-              </div>
-              </div>
-              
-                <div className="borders">
+
+              <div className="borders">
                 <h4>
                   <b>borders: </b>
                 </h4>
-                  {country.borders.map((el) => (
-                    <Border name={el} key={el} />
-                  ))}
-                </div>
+                {country.borders
+                  ? country.borders.map((el) => <Border name={el} key={el} />)
+                  : ""}
+              </div>
             </div>
-            
           </div>
         </>
       )}

@@ -17,8 +17,6 @@ body {
   font-family: 'Nunito Sans', sans-serif;
   padding:0;
   box-sizing:border-box;
-  /* - Homepage Items: 14px
-- Detail Page: 16px  */
   font-size: 14px;
   width: 100%;
   height: 100%;
@@ -32,22 +30,7 @@ body {
 }
 
 main {
-  padding: 2rem 1rem;
-  max-width: 1700px;
+  padding: 3rem 1rem;
+  max-width: 1379px;
   margin: auto;
 }
-/* :root{ */
-  /* (Dark Mode Elements) */
-  /* --Dark-Blue: hsl(209, 23%, 22%); */
-  /* (Dark Mode Background) */
-  /* --Very-Dark-Blue : hsl(207, 26%, 17%); */
-  /* (Light Mode Text) */
-  /* --Very-Dark-Blue-Light: hsl(207, 26%, 17%); */
-/* Light Mode Text */
-/* (Dark Mode Text & Light Mode Elements) */
-  /* --White: hsl(0, 0%, 100%); */
-  /* (Light Mode Background) */
-  /* --Very-Light-Gray: hsl(0, 0%, 98%); */
-  /* (Light Mode Input) */
-  /* --Dark-Gray: hsl(0, 0%, 52%); */
-/* } */
