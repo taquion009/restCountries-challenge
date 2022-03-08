@@ -22,13 +22,14 @@
     padding: 1.3rem 1.6rem;
 }
 
-.card .detail h3{
+.card .detail h2{
     margin-bottom: 1rem;
     letter-spacing: 1px;
     font-size: 1rem;
 }
 
-.card .detail h4{
+.card .detail h3{
+    font-size: .8rem;
     font-weight: 600;
     margin-bottom: .4rem;
 }

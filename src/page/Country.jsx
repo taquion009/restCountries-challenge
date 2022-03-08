@@ -36,7 +36,7 @@ const Country = () => {
 
   useEffect(() => {
     if (!name) return;
-    fetch(`${url}name/${name}?fullText=true`)
+    fetch(`${url}name/${name.split("*").join(" ")}?fullText=true`)
       .then((res) => res.json())
       .then((res) => {
         const countries = res.map((el) => ({

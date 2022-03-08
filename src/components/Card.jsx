@@ -1,21 +1,31 @@
-import React, { memo } from "react"
-import { Link } from "react-router-dom"
-import "./Card.css"
+import React, { memo } from "react";
+import { Link } from "react-router-dom";
+import "./Card.css";
 
 const Card = ({ img, name, population, region, capital }) => {
-    return (
-        <Link to={`/country/${name}`} className="card">
-            <div className="container-img">
-                <img src={img} alt={name} />
-            </div>
-            <div className="detail">
-                <h3>{name}</h3>
-                <h4><b>Population: </b>{population}</h4>
-                <h4><b>Region: </b>{region}</h4>
-                <h4><b>Capital: </b>{typeof capital === "object"?capital[0]:capital}</h4>
-            </div>
-        </Link>
-    )
-}
+  const url = name.split(" ").join("*");
+  return (
+    <Link to={`/country/${url}`} className="card">
+      <div className="container-img">
+        <img src={img} alt={name} />
+      </div>
+      <div className="detail">
+        <h2>{name}</h2>
+        <h3>
+          <b>Population: </b>
+          {population}
+        </h3>
+        <h3>
+          <b>Region: </b>
+          {region}
+        </h3>
+        <h3>
+          <b>Capital: </b>
+          {typeof capital === "object" ? capital[0] : capital}
+        </h3>
+      </div>
+    </Link>
+  );
+};
 
-export default memo(Card)
+export default memo(Card);
