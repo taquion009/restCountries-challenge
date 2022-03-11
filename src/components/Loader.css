@@ -1,0 +1,17 @@
+.loader{
+    position:fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000006;
+    z-index: 99999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top:0;
+    left: 0;
+}
+
+.loader svg{
+    width: 100px;
+    height: 100px;
+}

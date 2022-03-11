@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Card from "../components/Card";
 import "./Home.css";
+import Loader from "../components/Loader";
 
 const url = "https://restcountries.com/v3.1/";
 
@@ -8,9 +9,11 @@ const Home = () => {
   const [select, setSelect] = useState(null);
   const [db, setDb] = useState([]);
   const [search, setSearch] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!select) return;
+    setLoading(true);
     fetch(`${url}region/${select}`)
       .then((res) => res.json())
       .then((res) => {
@@ -22,11 +25,16 @@ const Home = () => {
           capital: el.capital,
         }));
         setDb(countries);
+        setLoading(false);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
   }, [select]);
 
   useEffect(() => {
+    setLoading(true);
     if (search.trim().length > 1) {
       fetch(`${url}name/${search.trim()}`)
         .then((res) => res.json())
@@ -43,9 +51,11 @@ const Home = () => {
               : null
           );
           setDb(countries);
+          setLoading(false);
         })
         .catch((err) => {
           setDb([]);
+          setLoading(false);
         });
     } else {
       fetch(`${url}all`)
@@ -59,6 +69,7 @@ const Home = () => {
             capital: el.capital,
           }));
           setDb(countries);
+          setLoading(false);
         });
     }
   }, [search]);
@@ -74,6 +85,7 @@ const Home = () => {
 
   return (
     <main>
+      {loading && <Loader />}
       <div className="col-2">
         <form>
           <label>

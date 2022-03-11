@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import "./Country.css";
+import Loader from "../components/Loader";
 
 const url = "https://restcountries.com/v3.1/";
 
@@ -30,12 +31,14 @@ const Border = ({ name }) => {
 
 const Country = () => {
   const [country, setcountry] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   let name = useParams().id;
   let history = useHistory();
 
   useEffect(() => {
     if (!name) return;
+    setLoading(true);
     fetch(`${url}name/${name.split("*").join(" ")}?fullText=true`)
       .then((res) => res.json())
       .then((res) => {
@@ -54,8 +57,12 @@ const Country = () => {
           languages: el.languages ? Object.values(el.languages) : null,
           borders: el.borders,
         }));
-        console.log(countries);
         setcountry(...countries);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
       });
   }, [history, name]);
 
@@ -66,6 +73,7 @@ const Country = () => {
 
   return (
     <main className="container-country">
+      {loading && <Loader />}
       {country && (
         <>
           <button onClick={back}>← Back</button>
