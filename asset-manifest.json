@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/restCountries-challenge-2/static/css/main.68c02ef1.chunk.css",
-    "main.js": "/restCountries-challenge-2/static/js/main.b3f1441d.chunk.js",
-    "main.js.map": "/restCountries-challenge-2/static/js/main.b3f1441d.chunk.js.map",
+    "main.css": "/restCountries-challenge-2/static/css/main.de9c742a.chunk.css",
+    "main.js": "/restCountries-challenge-2/static/js/main.886c9d4d.chunk.js",
+    "main.js.map": "/restCountries-challenge-2/static/js/main.886c9d4d.chunk.js.map",
     "runtime-main.js": "/restCountries-challenge-2/static/js/runtime-main.778806d8.js",
     "runtime-main.js.map": "/restCountries-challenge-2/static/js/runtime-main.778806d8.js.map",
     "static/js/2.db1e85a1.chunk.js": "/restCountries-challenge-2/static/js/2.db1e85a1.chunk.js",
     "static/js/2.db1e85a1.chunk.js.map": "/restCountries-challenge-2/static/js/2.db1e85a1.chunk.js.map",
     "index.html": "/restCountries-challenge-2/index.html",
-    "static/css/main.68c02ef1.chunk.css.map": "/restCountries-challenge-2/static/css/main.68c02ef1.chunk.css.map",
+    "static/css/main.de9c742a.chunk.css.map": "/restCountries-challenge-2/static/css/main.de9c742a.chunk.css.map",
     "static/js/2.db1e85a1.chunk.js.LICENSE.txt": "/restCountries-challenge-2/static/js/2.db1e85a1.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.778806d8.js",
     "static/js/2.db1e85a1.chunk.js",
-    "static/css/main.68c02ef1.chunk.css",
-    "static/js/main.b3f1441d.chunk.js"
+    "static/css/main.de9c742a.chunk.css",
+    "static/js/main.886c9d4d.chunk.js"
   ]
 }
