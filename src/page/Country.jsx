@@ -48,7 +48,12 @@ const Country = () => {
           population: el.population,
           region: el.region,
           capital: el.capital,
-          nativeName: el.nativeName,
+          nativeName: el.nativeName
+            ? [el.nativeName]
+            : false ||
+              Object.keys(res[0].name?.nativeName).map(
+                (el) => `${res[0].name.nativeName[el].common}(${el})`
+              ),
           subRegion: el.subregion,
           topLevelDomain: el.topLevelDomain || el.tld,
           currencies: res[0].currencies
@@ -87,7 +92,7 @@ const Country = () => {
                 <div>
                   <h4>
                     <b>Native Name: </b>
-                    {country.nativeName || "Sin datos"}
+                    {country.nativeName.join(", ") || "Sin datos"}
                   </h4>
                   <h4>
                     <b>Population: </b>

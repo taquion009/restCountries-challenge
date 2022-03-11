@@ -10,16 +10,20 @@
 
 .card .container-img{
     border-radius: 6px 6px 0 0;
+    height: 159px;
+    display: flex;
 }
 
 .card .container-img img{
-    width:100%;
-    height:auto;
+    width: 100%;
+    object-fit: cover;
+    height: auto;
     border-radius: 6px 6px 0 0;
+    object-position: center;
 }
 
 .card .detail{
-    padding: 1.3rem 1.6rem;
+    padding: 1.5rem 1.5rem 1.5rem 1.6rem
 }
 
 .card .detail h2{
@@ -32,4 +36,11 @@
     font-size: .8rem;
     font-weight: 600;
     margin-bottom: .4rem;
+}
+
+@media screen and (max-width: 640px){
+    .card .container-img{
+        height: auto;
+        display: block;
+    }
 }
